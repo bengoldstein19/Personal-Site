@@ -1,0 +1,118 @@
+<pre><code>
+#include &lt;MFRC522.h&gt;
+#include &lt;Servo.h&gt;
+#include &lt;SPI.h&gt;
+
+#define UID_BYTES (4)
+
+#define SS_PIN (10)
+#define RST_PIN (9)
+#define GREEN_PIN (7)
+#define RED_PIN (6)
+#define SOUND (5)
+#define SENSOR (4)
+
+
+MFRC522 mfrc522(SS_PIN, RST_PIN);
+
+//Authorized ID
+
+byte kart[4] = {83,49,179,18};
+
+//Servo position
+Servo myservo;
+
+//RFID tag
+boolean card;
+
+void setup()
+{
+  Serial.begin(9600);
+
+  //Start SPI
+  SPI.begin();
+
+  mfrc522.PCD_Init();   // Initiate MFRC522
+
+  //Set servo pin to 3
+  myservo.attach(3);
+
+  //Set initial servo position
+  myservo.write(110);
+
+  //Configure sensor and buzzer pins
+  pinMode(SENSOR, INPUT_PULLUP);
+  pinMode(SOUND, OUTPUT);
+  pinMode(RED_PIN, OUTPUT);
+  pinMode(GREEN_PIN, OUTPUT);
+  digitalWrite(RED_PIN, HIGH);
+  digitalWrite(GREEN_PIN, LOW);
+
+}
+
+
+void loop()
+{
+    if (!mfrc522.PICC_IsNewCardPresent() || !mfrc522.PICC_ReadCardSerial()) {
+      return;
+    }
+    bool valid = true;
+    for (int i = 0; i < UID_BYTES; i++) {
+      Serial.print(mfrc522.uid.uidByte[i]);
+      Serial.print(" ");
+      if (mfrc522.uid.uidByte[i] != kart[i]) {
+        valid = false;
+        break;
+      }
+    }
+    //mfrc522.uid.uidByte
+
+    if (valid) //change here the UID of the card/cards that you want to give access
+    {
+      Serial.println("Authorized access");
+      Serial.println("User authenticated");
+      //Play tone
+      digitalWrite(GREEN_PIN, HIGH);
+      digitalWrite(RED_PIN, LOW);
+      digitalWrite(SOUND, HIGH);
+      delay(300);
+      digitalWrite(SOUND, LOW);
+      delay(30);
+      digitalWrite(SOUND, HIGH);
+      delay(300);
+      digitalWrite(SOUND, LOW);
+      
+      //Open lock
+      myservo.write(15);
+
+      //Add a delay to give the user a chance to open the door
+      delay(2500);
+
+      //While the door is open -> wait
+      int num_closed = 0;
+      while (num_closed < 20)
+      {
+        if (digitalRead(SENSOR) == HIGH) num_closed = 0;
+        else num_closed++;
+
+        delay(100);
+      }
+
+      //Incase the user closes the door slowly, wait
+//      delay(1000);
+
+      //Lock the door
+      myservo.write(110);
+      digitalWrite(GREEN_PIN, LOW);
+      digitalWrite(RED_PIN, HIGH);
+    } else {
+      Serial.println("Wrong Card");
+      //Play tone
+      digitalWrite(SOUND, HIGH);
+      delay(700);
+      digitalWrite(SOUND, LOW);
+      delay(1000);
+    }
+
+}
+</code></pre>

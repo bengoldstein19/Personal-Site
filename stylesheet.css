@@ -1,35 +1,330 @@
-.profile-pic {
-  width: 100%;
-  border-radius: 50%;
-}
+/*
+MARK: Global attributes
+*/
 
-.centered {
-  width: 30%;
-  margin: auto;
-}
-
-.center {
-  width: 50%;
-  margin: auto;
-}
-
-.btn-img {
-  display: block;
-  margin: 0;
+* {
   padding: 0;
-  border: 0;
-  cursor: pointer;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  line-height: 2;
+  padding: 3rem;
+  background: linear-gradient(-45deg, #0099ff, #9966ff, #00ffff);
+    background-size: 500% 500%;
+    animation: gradient 10s infinite;
+  /* background-image: url("https://www.online-tech-tips.com/wp-content/uploads/2020/04/WallpaperCraft.jpg.optimal.jpg");
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  /* background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; */
+}
+
+/*
+MARK: Animation Definitions
+*/
+
+@keyframes moveToRight{
+  0% {
+    opacity: 0;
+    transform: translateX(-10rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+}
+
+@keyframes moveToLeft{
+  0% {
+    opacity: 0;
+    transform: translateX(10rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+}
+
+@keyframes gradient{
+  0% {
+    background-position: 0% 50%;
+  }
+  50%{
+    background-position: 100% 75%
+
+  }
+  100%{
+    background-position: 0% 50%
+  }
+
+}
+
+@keyframes moveUp{
+  0% {
+    opacity: 0;
+    transform: translateY(3rem);
+  }
+
+  100%{
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+
+@keyframes floater{
+  0% {
+    transform: translateY(0);
+    text-shadow: .1rem 0 0 rgba(0,0,0,0.2);
+  }
+
+  50% {
+    transform: translateY(-.5rem);
+    text-shadow: .2rem .2rem .2rem rgba(0,0,0,0.2);
+  }
+
+
+  100%{
+    transform: translateY(0);
+    text-shadow: .1rem 0 0 rgba(0,0,0,0.2);
+  }
+
+}
+
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(3rem);
+  }
+  70% {
+    transform: translateY(-.1rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(10rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-10rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+
+/*
+MARK: Custom classes
+*/
+
+.intro{
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+}
+
+.name {
+  display: block;
+  font-size: 5rem;
+  font-weight: 500;
+  letter-spacing: .9rem;
+  padding-top: 6rem;
+  animation-name: moveToRight, floater;
+  animation-duration: 2s, 5s;
+  animation-delay: 0s, 2s;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-iteration-count: 1, infinite;
+}
+
+.description{
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: 1.3rem;
+  padding-top: 1rem;
+  animation: moveToLeft 2s ease-in-out;
+}
+
+@media only screen and (max-width: 768px) {
+  .name {
+    font-size: 3rem;
+    font-weight: 300;
+    letter-spacing: .54rem;
+  }
+  .description {
+    font-size: 0.9rem;
+    font-weight: 180;
+    letter-spacing: .78rem;
+  }
+}
+
+
+.mainlink {
+  color: white;
+  text-decoration: none;
+  letter-spacing: 2px;
+}
+
+.mainlink:hover {
+  color: navy;
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .mainlink {
+    font-size: 1rem;
+  }
+}
+
+.mainmenu:nth-child(1) {
+  animation: moveInBottom 1s ease 1s;
+  animation-fill-mode: backwards;
+}
+.mainmenu:nth-child(2) {
+  animation: moveInBottom 1s ease 1.2s;
+  animation-fill-mode: backwards;
+}
+.mainmenu:nth-child(3) {
+  animation: moveInBottom 1s ease 1.4s;
+  animation-fill-mode: backwards;
+}
+.mainmenu:nth-child(4) {
+  animation: moveInBottom 1s ease 1.6s;
+  animation-fill-mode: backwards;
+}
+.mainmenu:nth-child(5) {
+  animation: moveInBottom 1s ease 1.8s;
+  animation-fill-mode: backwards;
+}
+.mainmenu:nth-child(6) {
+  animation: moveInBottom 1s ease 2s;
+  animation-fill-mode: backwards;
+}
+
+.mainmenu {
+  letter-spacing: 2px;
+  animation-fill-mode: backwards;
+}
+
+.navbar-brand, .spaced-letters{
+  letter-spacing: 4px;
+}
+
+.header-animation {
+  animation: moveInBottom 2s ease;
+  animation-fill-mode: backwards;
+}
+
+.first-row-animation {
+  animation: moveInBottom 2s ease 1s;
+  animation-fill-mode: backwards;
+}
+
+.navbar .navbar-toggler {
+  border-color: white;
+}
+
+.navbar .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.card-img{
+  box-shadow: 0px 2px 8px 2px rgba(0,0,0,.3);
+  transition: .2s all;
   background-color: white;
 }
 
-.btn-img img {
-  display: block;
+.card:hover .card-img {
+  filter: brightness(0.40);
 }
 
-.btn-img:hover .img-wrap {
-  background-color: black;
+.card-overlay-subtitle {
+  opacity: 0;
+  transform: translateX(15%);
+  transition: .8s all;
 }
 
-.btn-img:hover img {
-  opacity: 0.8;
+.card:hover .card-overlay-subtitle {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.card-overlay-button {
+  opacity: 0;
+  transform: translateX(-50%);
+  transition: .8s all !important;
+}
+
+.card:hover .card-overlay-button {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.about-picture {
+  clip-path: circle(42% at 50% 53%);
+  animation: moveInRight 2s ease .6s;
+  animation-fill-mode: backwards;
+}
+
+.about-header {
+  letter-spacing: 4px;
+  animation: moveInLeft 2s ease .2s;
+  animation-fill-mode: backwards;
+}
+
+.about-text {
+  font-size: 20px;
+  letter-spacing: 2px;
+  animation: moveInBottom 2s ease 1.2s;
+  animation-fill-mode: backwards;
+}
+
+@media only screen and (max-width: 768px) {
+  .display-1 {
+    font-size: 3.6rem !important;
+  }
+
+  .about-text {
+    font-size: 14px;
+    letter-spacing: 1.4px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .display-4 {
+    font-size: 2.1rem !important;
+  }
+}
+
+.aboutlink {
+  font-size: 1.4rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .aboutlink {
+    font-size: .84rem;
+  }
 }
